@@ -2,10 +2,15 @@
   .columns
     h2
 
-    h3
-      = title("Uptime Monitoring Made Easy")
-    get notified by SMS or email if your website is down. FireWatch checks your website every minute from 5 continents.
-    p
-    p
-    img src="firewatch.png"
+    - if user_signed_in?
+      h3
+        = title("Dashboard")
+    - else
+      h3
+        = title("Uptime Monitoring Made Easy")
+      p Get notified by SMS or email if your website is down.
+      p FireWatch checks your website every minute from 5 continents.
+      p
+      p
+      img src="firewatch.png"
     p

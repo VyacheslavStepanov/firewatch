@@ -1,0 +1,21 @@
+= form_for @status do |f|
+  - if @status.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@status.errors.count, 'error')} prohibited this status from being saved:"
+      ul
+        - @status.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :host_id
+    = f.number_field :host_id
+  .field
+    = f.label :dt
+    = f.datetime_select :dt
+  .field
+    = f.label :status
+    = f.number_field :status
+  .field
+    = f.label :latency
+    = f.number_field :latency
+  .actions = f.submit

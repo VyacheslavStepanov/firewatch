@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Host:
+  = @status.host_id
+p
+  strong Dt:
+  = @status.dt
+p
+  strong Status:
+  = @status.status
+p
+  strong Latency:
+  = @status.latency
+
+= link_to "Edit", edit_status_path(@status)
+'|
+= link_to "Back", statuses_path

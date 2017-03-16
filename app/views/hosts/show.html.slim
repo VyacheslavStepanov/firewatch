@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong Domain:
+  = @host.domain
+p
+  strong User:
+  = @host.user_id
+p
+  strong Prot:
+  = @host.prot
+p
+  strong Mstatus:
+  = @host.mstatus
+p
+  strong Last status:
+  = @host.last_status
+p
+  strong Last check:
+  = @host.last_check
+
+= link_to "Edit", edit_host_path(@host)
+'|
+= link_to "Back", hosts_path
