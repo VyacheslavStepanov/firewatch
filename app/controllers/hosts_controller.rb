@@ -4,6 +4,7 @@ class HostsController < ApplicationController
   # GET /hosts
   def index
     @hosts = Host.all
+    redirect_to root_url
   end
 
   # GET /hosts/1
@@ -22,9 +23,10 @@ class HostsController < ApplicationController
   # POST /hosts
   def create
     @host = Host.new(host_params)
-
+    redirect_to root_url and return if @host.domain.empty?
+    @host.user_id = current_user.id unless @host.user_id
     if @host.save
-      redirect_to @host, notice: "Host was successfully created."
+      redirect_to root_url and return
     else
       render :new
     end

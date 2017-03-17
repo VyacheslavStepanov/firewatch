@@ -1,0 +1,66 @@
+.row
+  .columns
+    h2
+
+    - if user_signed_in?
+      h3
+        = title("Dashboard")
+      p
+      form action="/hosts" method="post"
+        input type="hidden" name="authenticity_token" value="=form_authenticity_token"
+        ="Add new host"
+        input type="hidden" name="utf8" value="%E2%9C%93"
+        input name="host[domain]" id="host_domain" type="text" size="40"
+        input name="host[prot]" type="hidden" value="http"
+        input name="host[mstatus]" type="hidden" value="0"
+        input name="host[last_status]" type="hidden" value="1"
+        input name="host[last_check(1i)]" type="hidden"
+        input name="host[last_check(2i)]" type="hidden"
+        input name="host[last_check(3i)]" type="hidden"
+        input name="host[last_check(4i)]" type="hidden"
+        input name="host[last_check(5i)]" type="hidden"
+        input name="redirectroot" type="hidden" value="1"
+        button type="submit" name="commit"
+          ="+ Submit for monitoring"
+      hr
+    - if @hosts.count.zero?
+      h3
+        ="You don't have any hosts for monitoring. Create a new one."
+      br
+    - else
+      h4 Hosts being monitored
+      table
+        thead
+          tr
+            th Monitoring
+            th Host
+            th User
+            th Protocol
+            th Status
+            th Latest check
+            th
+            th
+            th
+
+        tbody
+          - @hosts.each do |host|
+            tr
+              td
+                -if host.mstatus == 1
+                  ="Running"
+                -else
+                  ="Paused"
+              td = host.domain
+              td = host.user_id
+              td = host.prot
+              td
+                -if host.last_status == 1
+                  ="UP"
+                -else
+                  ="DOWN"
+              td = host.last_check
+              td = link_to "Show", host
+              td = link_to "Edit", edit_host_path(host)
+              td = link_to "Delete", host, data: { confirm: "Are you sure?" }, method: :delete
+
+      br

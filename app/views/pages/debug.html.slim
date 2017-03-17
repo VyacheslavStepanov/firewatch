@@ -1,0 +1,16 @@
+.row
+  .columns
+    h2
+
+    - if user_signed_in?
+      h3
+        = title("Debug")
+      h5 Current user
+      p =current_user.email
+
+      h5 Current id
+      p =current_user.id
+
+    - else
+      h3
+        = title("Not signed in")
