@@ -47,9 +47,16 @@
             tr
               td
                 -if host.mstatus == 1
-                  ="Running"
+                  span style="color:#008000"
+                   b
+                    ="Running"
+                    span
+                    =" "
+                  = link_to "Stop", "hosts/" + host.id.to_s + "/stop"
                 -else
-                  ="Paused"
+                  span style="color:#000000"
+                   ="Paused "
+                  = link_to "Play", "hosts/" + host.id.to_s + "/play"
               td = host.domain
               td = host.user_id
               td = host.prot

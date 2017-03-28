@@ -1,9 +1,23 @@
 class HostsController < ApplicationController
-  before_action :set_host, only: %i(show edit update destroy)
+  before_action :set_host, only: %i(show edit update destroy play stop)
 
   # GET /hosts
   def index
     @hosts = Host.all
+    redirect_to root_url
+  end
+
+  # GET /hosts/play
+  def play
+    @host.mstatus = 1
+    @host.save
+    redirect_to root_url
+  end
+
+  # GET /hosts/stop
+  def stop
+    @host.mstatus = 0
+    @host.save
     redirect_to root_url
   end
 
