@@ -1,5 +1,6 @@
 class HostsController < ApplicationController
   before_action :set_host, only: %i(show edit update destroy play stop)
+  before_action :require_correct_user, only: %i(show edit update destroy play stop)
 
   # GET /hosts
   def index
@@ -71,5 +72,9 @@ class HostsController < ApplicationController
   # Only allow a trusted parameter "white list" through.
   def host_params
     params.require(:host).permit(:domain, :user_id, :prot, :mstatus, :last_status, :last_check)
+  end
+
+  def require_correct_user
+    redirect_to hosts_url if !user_signed_in? or !@host or @host.user_id != current_user.id
   end
 end
