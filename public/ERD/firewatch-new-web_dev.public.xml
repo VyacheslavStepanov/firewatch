@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="firewatch-new-web_dev" schema="public" type="PostgreSQL - 9.3.16">
+   <tables>
+      <table name="ar_internal_metadata" numRows="1" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="key" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="value" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="2" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="3" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="key" sequenceNumberInPK="1"/>
+         <index name="ar_internal_metadata_pkey" unique="true">
+            <column ascending="true" name="key"/>
+         </index>
+      </table>
+      <table name="hosts" numRows="5" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('hosts_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="statuses"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="users"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="domain" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="user_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="prot" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="mstatus" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="last_status" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="6" name="last_check" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="9" name="lastnode" nullable="true" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="hosts_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="schema_migrations" numRows="4" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="version" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <primaryKey column="version" sequenceNumberInPK="1"/>
+         <index name="schema_migrations_pkey" unique="true">
+            <column ascending="true" name="version"/>
+         </index>
+      </table>
+      <table name="statuses" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('statuses_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <parent column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="hosts"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="host_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="2" name="dt" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="3" name="status" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="latency" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="5" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="statuses_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="users" numRows="4" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('users_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <parent column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="hosts"/>
+         </column>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="1" name="email" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="2" name="encrypted_password" nullable="false" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="reset_password_token" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="4" name="reset_password_sent_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="5" name="remember_created_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="confirmation_token" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="7" name="confirmed_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="confirmation_sent_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="9" name="unconfirmed_email" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="10" name="sign_in_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="11" name="current_sign_in_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="12" name="last_sign_in_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="13" name="current_sign_in_ip" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="14" name="last_sign_in_ip" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="15" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="16" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="17" name="full_name" nullable="true" remarks="" size="255" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="users_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_users_on_email" unique="true">
+            <column ascending="true" name="email"/>
+         </index>
+         <index name="index_users_on_reset_password_token" unique="true">
+            <column ascending="true" name="reset_password_token"/>
+         </index>
+      </table>
+   </tables>
+</database>

@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170316082805) do
+ActiveRecord::Schema.define(version: 20170418105131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "adminpack"
 
   create_table "hosts", force: :cascade do |t|
     t.string   "domain",      limit: 255
@@ -24,6 +25,7 @@ ActiveRecord::Schema.define(version: 20170316082805) do
     t.datetime "last_check"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "lastnode"
   end
 
   create_table "statuses", force: :cascade do |t|
