@@ -34,11 +34,10 @@
           tr
             th Monitoring
             th Host
-            th User
-            th Protocol
             th Status
-            th Latest check
-            th Last node
+            th History
+            th Last check
+            th Node
             th
             th
             th
@@ -59,14 +58,20 @@
                    ="Paused "
                   = link_to "Play", "hosts/" + host.id.to_s + "/play"
               td = host.domain
-              td = host.user_id
-              td = host.prot
               td
-                -if host.last_status == 1
-                  ="UP"
+                -if host.mstatus == 1
+                  -if host.last_status == 1
+                    b
+                     span style="color:#008000"
+                      ="UP"
+                  -else
+                    b
+                     span style="color:#FF0000"
+                      ="DOWN"
                 -else
-                  ="DOWN"
-              td = host.last_check
+                  ="N/A"
+              td = link_to "Status history", "host/" + host.id.to_s + "/statuses"
+              td = host.last_check_string
               td = host.lastnode
               td = link_to "Show", host
               td = link_to "Edit", edit_host_path(host)

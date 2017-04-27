@@ -3,6 +3,13 @@ class HostsController < ApplicationController
   before_action :require_correct_user, only: %i(show edit update destroy play stop)
 
   # GET /hosts
+  def statuses
+    @host = Host.find(params[:id])
+    @statuses = Status.where(host_id: @host.id).order("id desc").limit(100)
+    redirect_to root_url and return if @host.domain.empty?
+  end
+
+  # GET /hosts
   def index
     @hosts = Host.all
     redirect_to root_url
@@ -40,11 +47,8 @@ class HostsController < ApplicationController
     @host = Host.new(host_params)
     redirect_to root_url and return if @host.domain.empty?
     @host.user_id = current_user.id unless @host.user_id
-    if @host.save
-      redirect_to root_url and return
-    else
-      render :new
-    end
+    redirect_to root_url and return if @host.save
+    render :new
   end
 
   # PATCH/PUT /hosts/1

@@ -1,0 +1,33 @@
+h1 Listing statuses
+
+= link_to "Return", root_path
+
+hr
+
+table
+  thead
+    tr
+      th Host
+      th Time
+      th Agent
+      th Status
+      th Response time
+      th
+      th
+      th
+
+  tbody
+    - @statuses.each do |status|
+      tr
+        td = @host.domain
+        td = status.created_at
+        td = status.agentname
+        td = status.status
+        td = status.latency / 1000
+        td = link_to "Show", status
+        td = link_to "Edit", edit_status_path(status)
+        td = link_to "Delete", status, data: { confirm: "Are you sure?" }, method: :delete
+
+br
+
+= link_to "Return", root_path
