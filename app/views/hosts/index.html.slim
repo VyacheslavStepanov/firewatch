@@ -20,10 +20,10 @@ table
         td = host.domain
         td = host.user_id
         td = host.prot
-        td = host.mstatus
+        td = host.monitor_status
         td = host.last_status
         td = host.last_check
-        td = host.lastnode
+        td = host.last_node
         td = link_to "Show", host
         td = link_to "Edit", edit_host_path(host)
         td = link_to "Delete", host, data: { confirm: "Are you sure?" }, method: :delete

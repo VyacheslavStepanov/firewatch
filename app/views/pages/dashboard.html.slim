@@ -12,7 +12,7 @@
         input type="hidden" name="utf8" value="%E2%9C%93"
         input name="host[domain]" id="host_domain" type="text" size="40"
         input name="host[prot]" type="hidden" value="http"
-        input name="host[mstatus]" type="hidden" value="0"
+        input name="host[monitor_status]" type="hidden" value="0"
         input name="host[last_status]" type="hidden" value="1"
         input name="host[last_check(1i)]" type="hidden"
         input name="host[last_check(2i)]" type="hidden"
@@ -46,7 +46,7 @@
           - @hosts.each do |host|
             tr
               td
-                -if host.mstatus == 1
+                -if host.monitor_status == 1
                   span style="color:#008000"
                    b
                     ="Running"
@@ -59,7 +59,7 @@
                   = link_to "Play", "hosts/" + host.id.to_s + "/play"
               td = host.domain
               td
-                -if host.mstatus == 1
+                -if host.monitor_status == 1
                   -if host.last_status == 1
                     b
                      span style="color:#008000"
@@ -72,7 +72,7 @@
                   ="N/A"
               td = link_to "Status history", "host/" + host.id.to_s + "/statuses"
               td = host.last_check_string
-              td = host.lastnode
+              td = host.last_node
               td = link_to "Show", host
               td = link_to "Edit", edit_host_path(host)
               td = link_to "Delete", host, data: { confirm: "Are you sure?" }, method: :delete

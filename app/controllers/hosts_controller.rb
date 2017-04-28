@@ -17,14 +17,14 @@ class HostsController < ApplicationController
 
   # GET /hosts/play
   def play
-    @host.mstatus = 1
+    @host.monitor_status = 1
     @host.save
     redirect_to root_url
   end
 
   # GET /hosts/stop
   def stop
-    @host.mstatus = 0
+    @host.monitor_status = 0
     @host.save
     redirect_to root_url
   end
@@ -75,7 +75,7 @@ class HostsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def host_params
-    params.require(:host).permit(:domain, :user_id, :prot, :mstatus, :last_status, :last_check)
+    params.require(:host).permit(:domain, :user_id, :prot, :monitor_status, :last_status, :last_check)
   end
 
   def require_correct_user
