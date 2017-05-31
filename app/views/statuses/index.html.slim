@@ -17,7 +17,7 @@ table
         td = status.host_id
         td = status.dt
         td = status.status
-        td = status.latency
+        td = status.response_time
         td = link_to "Show", status
         td = link_to "Edit", edit_status_path(status)
         td = link_to "Destroy", status, data: { confirm: "Are you sure?" }, method: :delete

@@ -9,6 +9,12 @@ class HostsController < ApplicationController
     redirect_to root_url and return if @host.domain.empty?
   end
 
+  def reload_status_history
+    @host = Host.find(params[:id])
+    @statuses = Status.where(host_id: @host.id).order("id desc").limit(100)
+    render partial: "status_history"
+  end
+
   # GET /hosts
   def index
     @hosts = Host.all
@@ -46,6 +52,8 @@ class HostsController < ApplicationController
   def create
     @host = Host.new(host_params)
     redirect_to root_url and return if @host.domain.empty?
+    @host.last_node = 0
+    @host.monitor_status = 1
     @host.user_id = current_user.id unless @host.user_id
     redirect_to root_url and return if @host.save
     render :new

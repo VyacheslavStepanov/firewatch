@@ -1,0 +1,30 @@
+p#notice = notice
+
+p
+  strong Node:
+  = @node.node_id
+p
+  strong Node status:
+  = @node.node_status
+p
+  strong Node name:
+  = @node.node_name
+p
+  strong Ip:
+  = @node.ip
+p
+  strong Geo name:
+  = @node.geo_name
+p
+  strong Db connection:
+  = @node.db_connection
+p
+  strong Message queue connection:
+  = @node.message_queue_connection
+p
+  strong Queue name:
+  = @node.queue_name
+
+= link_to "Edit", edit_node_path(@node)
+'|
+= link_to "Back", nodes_path

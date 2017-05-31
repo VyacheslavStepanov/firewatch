@@ -1,0 +1,24 @@
+= form_for @aggregator do |f|
+  - if @aggregator.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@aggregator.errors.count, 'error')} prohibited this aggregator from being saved:"
+      ul
+        - @aggregator.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :aggregator_id
+    = f.number_field :aggregator_id
+  .field
+    = f.label :aggregator_status
+    = f.number_field :aggregator_status
+  .field
+    = f.label :aggregator_name
+    = f.text_field :aggregator_name
+  .field
+    = f.label :db_connection
+    = f.text_field :db_connection
+  .field
+    = f.label :message_queue_connection
+    = f.text_field :message_queue_connection
+  .actions = f.submit

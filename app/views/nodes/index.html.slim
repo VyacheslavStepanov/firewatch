@@ -1,0 +1,35 @@
+h1 Listing nodes
+
+table
+  thead
+    tr
+      th Node
+      th Node status
+      th Node name
+      th Ip
+      th Geo name
+      th Db connection
+      th Message queue connection
+      th Queue name
+      th
+      th
+      th
+
+  tbody
+    - @nodes.each do |node|
+      tr
+        td = node.node_id
+        td = node.node_status
+        td = node.node_name
+        td = node.ip
+        td = node.geo_name
+        td = node.db_connection
+        td = node.message_queue_connection
+        td = node.queue_name
+        td = link_to "Show", node
+        td = link_to "Edit", edit_node_path(node)
+        td = link_to "Destroy", node, data: { confirm: "Are you sure?" }, method: :delete
+
+br
+
+= link_to "New Node", new_node_path

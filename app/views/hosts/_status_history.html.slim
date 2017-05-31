@@ -1,0 +1,25 @@
+table id="stat_table"
+  thead
+    tr
+      th Host
+      th Time
+      th Node
+      th Node #
+      th Status
+      th Response time
+      th
+      th
+      th
+
+  tbody
+    - @statuses.each do |status|
+      tr
+        td = @host.domain
+        td = status.created_at.to_time.iso8601
+        td = status.node_name
+        td = status.node_id
+        td = status.status
+        td = status.response_time
+        td = link_to "Show", status
+        td = link_to "Edit", edit_status_path(status)
+        td = link_to "Delete", status, data: { confirm: "Are you sure?" }, method: :delete

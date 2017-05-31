@@ -1,0 +1,29 @@
+h1 Listing aggregators
+
+table
+  thead
+    tr
+      th Aggregator
+      th Aggregator status
+      th Aggregator name
+      th Db connection
+      th Message queue connection
+      th
+      th
+      th
+
+  tbody
+    - @aggregators.each do |aggregator|
+      tr
+        td = aggregator.aggregator_id
+        td = aggregator.aggregator_status
+        td = aggregator.aggregator_name
+        td = aggregator.db_connection
+        td = aggregator.message_queue_connection
+        td = link_to "Show", aggregator
+        td = link_to "Edit", edit_aggregator_path(aggregator)
+        td = link_to "Destroy", aggregator, data: { confirm: "Are you sure?" }, method: :delete
+
+br
+
+= link_to "New Aggregator", new_aggregator_path

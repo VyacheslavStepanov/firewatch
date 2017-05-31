@@ -10,11 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170428034910) do
+ActiveRecord::Schema.define(version: 20170529141021) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "adminpack"
+
+  create_table "aggregators", force: :cascade do |t|
+    t.integer "aggregator_id"
+    t.integer "aggregator_status"
+    t.string  "aggregator_name"
+    t.string  "db_connection"
+    t.string  "message_queue_connection"
+  end
 
   create_table "hosts", force: :cascade do |t|
     t.string   "domain",         limit: 255
@@ -28,14 +36,28 @@ ActiveRecord::Schema.define(version: 20170428034910) do
     t.integer  "last_node"
   end
 
+  create_table "nodes", force: :cascade do |t|
+    t.integer "node_id"
+    t.integer "node_status"
+    t.string  "node_name"
+    t.string  "ip"
+    t.string  "geo_name"
+    t.string  "db_connection"
+    t.string  "message_queue_connection"
+    t.string  "queue_name"
+  end
+
   create_table "statuses", force: :cascade do |t|
     t.integer  "host_id"
     t.datetime "dt"
     t.integer  "status"
-    t.integer  "latency"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "agentname"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "response_time"
+    t.string   "node_name"
+    t.integer  "node_id"
+    t.string   "error_description"
+    t.string   "url"
   end
 
   create_table "users", force: :cascade do |t|

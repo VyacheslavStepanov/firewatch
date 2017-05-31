@@ -1,33 +1,50 @@
-h1 Listing statuses
+h1 Latest status history
 
 = link_to "Return", root_path
 
 hr
 
-table
-  thead
-    tr
-      th Host
-      th Time
-      th Agent
-      th Status
-      th Response time
-      th
-      th
-      th
+= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"
 
-  tbody
-    - @statuses.each do |status|
-      tr
-        td = @host.domain
-        td = status.created_at
-        td = status.agentname
-        td = status.status
-        td = status.latency / 1000
-        td = link_to "Show", status
-        td = link_to "Edit", edit_status_path(status)
-        td = link_to "Delete", status, data: { confirm: "Are you sure?" }, method: :delete
+= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"
 
+div align="center"
+
+  canvas id="statChart" width="1724" height="500"
+
+hr
+
+div id="history"
+  = render partial: "status_history"
 br
+
+javascript:
+    setInterval(function() {
+    $('#history').load('/hosts/reload_status_history');
+  }, 3000);
+
+javascript:
+  var elements = document.getElementsByTagName('tr');
+
+  var randomColorGenerator = function () {
+      return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+  };
+
+  var dataset1={
+          label: "response time",
+          data: [
+          ],
+          fill: true,
+          backgroundColor: "rgba(0,128,255,0.6)"
+        };
+
+  for (var i = 0; i < elements.length; i++) {
+    var tds = elements[i].getElementsByTagName('*');
+    if (i!=0) {
+      //1 - time
+      //5 - response
+      dataset1.data.push({x: moment(tds[1].innerHTML).subtract(3,'hours').format(), y:tds[5].innerHTML })
+    }
+  }
 
 = link_to "Return", root_path

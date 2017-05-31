@@ -3,8 +3,9 @@ class Host < ApplicationRecord
   before_save :prepare_values
 
   def prepare_values
-    self.last_node = 0
-    self.monitor_status = 1
+    # self.last_node = 0
+    # self.monitor_status = 1
+
     self.domain = "http://" + domain if domain !~ /^http/
   end
 

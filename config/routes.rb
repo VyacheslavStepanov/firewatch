@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :aggregators
+  resources :nodes
   resources :hosts
   get "hosts/:id/play" => "hosts#play"
   get "hosts/:id/stop" => "hosts#stop"
