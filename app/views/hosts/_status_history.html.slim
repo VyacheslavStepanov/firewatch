@@ -7,6 +7,7 @@ table id="stat_table"
       th Node #
       th Status
       th Response time
+      th Error Description
       th
       th
       th
@@ -20,6 +21,7 @@ table id="stat_table"
         td = status.node_id
         td = status.status
         td = status.response_time
+        td = status.error_description
         td = link_to "Show", status
         td = link_to "Edit", edit_status_path(status)
         td = link_to "Delete", status, data: { confirm: "Are you sure?" }, method: :delete
