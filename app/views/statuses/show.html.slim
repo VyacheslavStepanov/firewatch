@@ -1,5 +1,3 @@
-p#notice = notice
-
 p
   strong Host:
   = @status.host_id
@@ -11,7 +9,7 @@ p
   = @status.status
 p
   strong Latency:
-  = @status.latency
+  = @status.response_time
 
 = link_to "Edit", edit_status_path(@status)
 '|

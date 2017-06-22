@@ -1,50 +1,94 @@
-h1 Latest status history
+.large-12.column
+  h1 Host status history
 
-= link_to "Return", root_path
+  h3 = "Host: #{@host.name}"
 
-hr
+  hr
 
-= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"
+  = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"
 
-= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"
+  = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"
 
-div align="center"
+  div align="center" id="main"
 
-  canvas id="statChart" width="1724" height="500"
+    canvas id="statChart" width="1300" height="400"
 
-hr
+  hr
 
-div id="history"
-  = render partial: "status_history"
-br
+  div id="history"
+    = render partial: "reload_history", locals: { statuses: @statuses }
+  br
 
-javascript:
-    setInterval(function() {
-    $('#history').load('/hosts/reload_status_history');
-  }, 3000);
 
 javascript:
   var elements = document.getElementsByTagName('tr');
-
   var randomColorGenerator = function () {
-      return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+      return 'rgba(' + Math.round(255*Math.random()).toString() +","
+        + Math.round(255*Math.random()).toString() +"," + Math.round(255*Math.random()).toString()
   };
-
-  var dataset1={
-          label: "response time",
-          data: [
-          ],
-          fill: true,
-          backgroundColor: "rgba(0,128,255,0.6)"
-        };
-
+  var points_dataset=[];
+  var data=[];
   for (var i = 0; i < elements.length; i++) {
     var tds = elements[i].getElementsByTagName('*');
     if (i!=0) {
-      //1 - time
-      //5 - response
-      dataset1.data.push({x: moment(tds[1].innerHTML).subtract(3,'hours').format(), y:tds[5].innerHTML })
+      data.push({node_id: tds[2].innerHTML, x: moment(tds[1].innerHTML)
+        .subtract(3,'hours').format(), y:tds[5].innerHTML,location:tds[6].innerHTML});
     }
   }
 
-= link_to "Return", root_path
+  var groups = { };
+  data.forEach(function(item){
+    var list = groups[item.location];
+
+    if(list){
+      list.push(item);
+    } else{
+      groups[item.location] = [item];
+    }
+  });
+  for (var key in groups) {
+    var color = randomColorGenerator();
+    var dataset={
+      label: key,
+      data: [
+      ],
+      fill: true,
+      backgroundColor: color+",0.2)",
+      borderColor: color+",1)",
+      borderWidth: 1,
+      lineTension: 0
+    };
+    item=groups[key]
+
+    for (var key2 in item){
+      point = item[key2];
+      dataset.data.push({x: point["x"], y: point["y"]});
+    }
+    points_dataset.push(dataset);
+  };
+
+/ script:
+/   //Get the canvas & context
+/   | var c = document.getElementById('statChart');
+/   //var ct = c.get(0).getContext('2d');
+/   var container = c.parent();
+
+/   //Run function when browser resizes
+/   $(window).resize( respondCanvas );
+
+/   function respondCanvas(){
+/       c.attr('width', $(container).width() ); //max width
+/       c.attr('height', $(container).height() ); //max height
+/       alert("window was resized")
+/       updateCanvas();
+/   }
+
+/   //Initial call
+/   respondCanvas();
+
+javascript:
+    setInterval(function() {
+      $.ajax({ url: "reload_history" })
+      //updateCanvas();
+    }, 10000);
+

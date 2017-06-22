@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170529141021) do
+ActiveRecord::Schema.define(version: 20170615092755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,17 +34,19 @@ ActiveRecord::Schema.define(version: 20170529141021) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.integer  "last_node"
+    t.string   "name"
   end
 
   create_table "nodes", force: :cascade do |t|
-    t.integer "node_id"
-    t.integer "node_status"
-    t.string  "node_name"
-    t.string  "ip"
-    t.string  "geo_name"
-    t.string  "db_connection"
-    t.string  "message_queue_connection"
-    t.string  "queue_name"
+    t.integer  "node_id"
+    t.integer  "node_status"
+    t.string   "node_name"
+    t.string   "ip"
+    t.string   "geo_name"
+    t.string   "db_connection"
+    t.string   "message_queue_connection"
+    t.string   "queue_name"
+    t.datetime "heartbeat"
   end
 
   create_table "statuses", force: :cascade do |t|

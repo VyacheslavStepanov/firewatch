@@ -3,8 +3,8 @@ h1 Listing hosts
 table
   thead
     tr
+      th Name
       th Domain
-      th User
       th Prot
       th Mstatus
       th Last status
@@ -17,8 +17,8 @@ table
   tbody
     - @hosts.each do |host|
       tr
+        td = host.name
         td = host.domain
-        td = host.user_id
         td = host.prot
         td = host.monitor_status
         td = host.last_status

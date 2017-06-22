@@ -1,11 +1,9 @@
-p#notice = notice
-
 p
-  strong Domain:
+  strong Name:
+  = @host.name
+p
+  strong Url:
   = @host.domain
-p
-  strong User:
-  = @host.user_id
 p
   strong Prot:
   = @host.prot

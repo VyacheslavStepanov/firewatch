@@ -18,6 +18,9 @@ linters:
     enabled: true
     max: 120
 
+  TagCase:
+    enabled: false
+
   RuboCop:
     enabled: true
     # These cops are incredibly noisy since the Ruby we extract from Slim

@@ -15,9 +15,7 @@ function newDate(days) {
 var config = {
 			type: 'line',
 			data: {
-				datasets: [
-                                                  dataset1
-                                        ]
+				datasets: points_dataset
 			},
 			options: {
 				responsive: false,
@@ -42,7 +40,22 @@ var config = {
 							labelString: 'time (ms)'
 						}
 					}]
-				}
+				},
+				tooltips: {
+          titleFontSize : 16,
+          callbacks: {
+            title: function(tooltipItems, data) {
+                return "Point description";
+            },
+
+            label: function(tooltipItem, data) {
+                return "Response time: "+tooltipItem.yLabel;
+            },
+            afterLabel: function(tooltipItem, data) {
+                return "Date: "+tooltipItem.xLabel;
+            }
+          }
+        }
 			}
 		};
 

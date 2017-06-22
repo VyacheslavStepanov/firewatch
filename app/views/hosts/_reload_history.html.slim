@@ -1,0 +1,21 @@
+table id="stat_table"
+  thead
+    tr
+      th URL
+      th Time
+      th Status
+      th Response time
+      th Node location
+      th
+  tbody
+    - @statuses.each do |status|
+      tr
+        td = status.url
+        td style="display:none;" = status.created_at.iso8601
+        td = status.created_at.strftime("%H:%M:%S %d.%m.%Y")
+        td style="display:none;" = status.node_id
+        td.has-tip.data-tooltip aria-haspopup="true" data-disable-hover="false" style=status.style title=status.error
+          = status.status_string
+        td = status.response_time
+        td.has-tip.data-tooltip aria-haspopup="true" data-disable-hover = "false" title = status.tooltip
+          = status.node_location

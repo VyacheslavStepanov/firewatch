@@ -5,14 +5,16 @@ class HostsController < ApplicationController
   # GET /hosts
   def statuses
     @host = Host.find(params[:id])
-    @statuses = Status.where(host_id: @host.id).order("id desc").limit(100)
+    @statuses = Status.where(host_id: @host.id).order("id desc").limit(100).decorate
     redirect_to root_url and return if @host.domain.empty?
   end
 
-  def reload_status_history
+  def reload_history
     @host = Host.find(params[:id])
-    @statuses = Status.where(host_id: @host.id).order("id desc").limit(100)
-    render partial: "status_history"
+    @statuses = Status.where(host_id: @host.id).order("id desc").limit(100).decorate
+    respond_to do |format|
+      format.js
+    end
   end
 
   # GET /hosts
@@ -52,9 +54,7 @@ class HostsController < ApplicationController
   def create
     @host = Host.new(host_params)
     redirect_to root_url and return if @host.domain.empty?
-    @host.last_node = 0
-    @host.monitor_status = 1
-    @host.user_id = current_user.id unless @host.user_id
+    update_params(@host)
     redirect_to root_url and return if @host.save
     render :new
   end
@@ -81,9 +81,16 @@ class HostsController < ApplicationController
     @host = Host.find(params[:id])
   end
 
+  def update_params(host)
+    host.name = host.domain
+    host.last_node = 0
+    host.monitor_status = 1
+    host.user_id ||= current_user.id
+  end
+
   # Only allow a trusted parameter "white list" through.
   def host_params
-    params.require(:host).permit(:domain, :user_id, :prot, :monitor_status, :last_status, :last_check)
+    params.require(:host).permit(:name, :domain, :user_id, :prot, :monitor_status, :last_status, :last_check)
   end
 
   def require_correct_user

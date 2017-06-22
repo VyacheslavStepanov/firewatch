@@ -1,0 +1,60 @@
+- if @hosts.count.zero?
+      h3
+        ="You don't have any hosts for monitoring. Create a new one."
+      br
+- else
+  h4 Hosts being monitored
+  table
+    thead
+      tr
+        th Monitoring
+        th Name
+        th Url
+        th Status
+        th History
+        th Last check
+        th Node
+        th
+        th
+        th
+
+    tbody
+      - @hosts.each do |host|
+        tr
+          td
+            -if host.monitor_status == 1
+              span style="color:#008000"
+               b
+                ="Running"
+                span
+                =" "
+              = link_to "Stop", "hosts/" + host.id.to_s + "/stop"
+            -else
+              span style="color:#000000"
+               ="Paused "
+              = link_to "Play", "hosts/" + host.id.to_s + "/play"
+          td = host.name
+          td = host.domain
+          td
+            -if host.monitor_status == 1
+              -if host.last_status == 1
+                b
+                 span style="color:#008000"
+                  ="UP"
+              -else
+                -if host.last_status == 0 and host.last_check.present?
+                  b
+                    span style="color:#FF0000"
+                      ="DOWN"
+                -else
+                  b
+                    span ="N/A"
+
+            -else
+              ="N/A"
+          td = link_to "Status history", "host/" + host.id.to_s + "/statuses"
+          td = host.last_check_string
+          td = host.last_node
+          td = link_to "Show", host
+          td = link_to "Edit", edit_host_path(host)
+          td = link_to "Delete", host, data: { confirm: "Are you sure?" }, method: :delete

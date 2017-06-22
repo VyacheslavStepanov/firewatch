@@ -17,6 +17,12 @@ Rails/HasAndBelongsToMany:
 Rails/OutputSafety:
   Enabled: false
 
+Metrics/BlockNesting:
+  Enabled: false
+
+Style/IfInsideElse:
+  Enabled: false
+
 RSpec/MultipleExpectations:
   Enabled: false
 
@@ -44,6 +50,12 @@ Style/CollectionMethods:
 Style/SymbolArray:
   Enabled: true
 
+Style/CaseEquality:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
   ConsistentQuotesInMultiline: true
@@ -67,7 +79,7 @@ Style/StringMethods:
   Enabled: true
 
 Metrics/LineLength:
-  Max: 120
+  Max: 170
 
 Metrics/BlockLength:
   Enabled: false

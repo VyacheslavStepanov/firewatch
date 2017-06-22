@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
-ruby "2.3.1"
+ruby "2.3.3"
 
-gem "pg"
+gem "pg", "0.19.0"
 gem "rails", "5.0.2"
 
 # assets
@@ -38,6 +38,8 @@ gem "health_check"
 gem "interactor"
 gem "kaminari"
 gem "memory_profiler"
+gem "nokogiri", "1.7.2"
+
 gem "puma"
 gem "pundit"
 gem "rack-canonical-host"
