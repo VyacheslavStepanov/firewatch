@@ -7,7 +7,7 @@ class StatusDecorator < Draper::Decorator
   end
 
   def status_string
-    if status.status == 0
+    if status.status != 200
       then "Down"
     else
       "Up"
@@ -15,7 +15,7 @@ class StatusDecorator < Draper::Decorator
   end
 
   def style
-    if status.status == 0
+    if status.status != 200
       then "color:#FF0000"
     else
       "color:#008000"
