@@ -2,8 +2,8 @@ class StatusDecorator < Draper::Decorator
   delegate_all
 
   def error
-    return error_description unless /^[0-9][0-9][0-9]$/ === error_description
-    I18n.t("http.error_" + error_description)
+    return error_description if error_description
+    I18n.t("http.error_" + status)
   end
 
   def status_string
