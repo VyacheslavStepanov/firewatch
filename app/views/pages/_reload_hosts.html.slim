@@ -55,6 +55,7 @@
           td = link_to "Status history", "host/" + host.id.to_s + "/statuses"
           td = host.last_check_string
           td = host.last_node
-          td = link_to "Show", host
+          - if current_user.admin
+            td = link_to "Show", host
           td = link_to "Edit", edit_host_path(host)
           td = link_to "Delete", host, data: { confirm: "Are you sure?" }, method: :delete

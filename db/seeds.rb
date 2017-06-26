@@ -7,7 +7,8 @@ user = User.new(
   full_name: "Ivan Ivanov",
   email: 'fs@firewatch.tech',
   password: '123456789',
-  password_confirmation: '123456789'
+  password_confirmation: '123456789',
+  admin: true
 )
 user.skip_confirmation!
 user.save!

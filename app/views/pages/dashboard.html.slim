@@ -26,13 +26,6 @@
         button type="submit" name="commit"
           ="+ Submit for monitoring"
       hr
-        h3
-          = "Administration"
-          br
-        = link_to "Nodes", "nodes/"
-        br
-        = link_to "Aggregators", "aggregators/"
-      hr
     div id="hosts"
       = render partial: "reload_hosts", locals: { hosts: @hosts }
 javascript:  setInterval(function() {

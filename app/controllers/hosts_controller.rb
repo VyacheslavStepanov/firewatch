@@ -62,7 +62,7 @@ class HostsController < ApplicationController
   # PATCH/PUT /hosts/1
   def update
     if @host.update(host_params)
-      redirect_to @host, notice: "Host was successfully updated."
+      redirect_to root_url, notice: "Host #{@host.name} was successfully updated."
     else
       render :edit
     end
