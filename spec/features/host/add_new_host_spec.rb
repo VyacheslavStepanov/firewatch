@@ -9,7 +9,7 @@ feature "Add new host" do
     visit root_path
     fill_in "host[domain]", with: attributes_for(:host).slice(:domain)
     # fill_form(:host, FactoryGirl.attributes_for(:host).slice(:domain))
-    click_button "+ Submit for monitoring"
+    click_button "Start monitoring"
     expect(page).to have_content(attributes_for(:host).slice(:domain))
   end
 end

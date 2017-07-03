@@ -1,33 +1,35 @@
-h1 Listing hosts
+.row
+  .large-12.column
+    h1 Listing hosts
 
-table
-  thead
-    tr
-      th Name
-      th Domain
-      th Prot
-      th Mstatus
-      th Last status
-      th Last check
-      th Last check
-      th
-      th
-      th
+    table
+      thead
+        tr
+          th Name
+          th Domain
+          th Prot
+          th Mstatus
+          th Last status
+          th Last check
+          th Last check
+          th
+          th
+          th
 
-  tbody
-    - @hosts.each do |host|
-      tr
-        td = host.name
-        td = host.domain
-        td = host.prot
-        td = host.monitor_status
-        td = host.last_status
-        td = host.last_check
-        td = host.last_node
-        td = link_to "Show", host
-        td = link_to "Edit", edit_host_path(host)
-        td = link_to "Delete", host, data: { confirm: "Are you sure?" }, method: :delete
+      tbody
+        - hosts.each do |host|
+          tr
+            td = host.name
+            td = host.domain
+            td = host.prot
+            td = host.monitor_status
+            td = host.last_status
+            td = host.last_check
+            td = host.last_node
+            td = link_to "Show", host
+            td = link_to "Edit", edit_host_path(host)
+            td = link_to "Delete", host, data: { confirm: "Are you sure?" }, method: :delete
 
-br
+    br
 
-= link_to "New Host", new_host_path
+    = link_to "New Host", new_host_path

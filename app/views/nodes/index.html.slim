@@ -1,37 +1,34 @@
-h1 Listing nodes
+.row
+  .large-12
+    table
+      caption Nodes
+      thead
+        tr
+          th id
+          th Status
+          th Name
+          th Heartbeat
+          th Ip
+          th Location
+          th Db
+          th RabbitMQ
+          th Queue
+          th
+          th
+      tbody
+        - nodes.each do |node|
+          tr
+            td = node.node_id
+            td = node.node_status
+            td = node.node_name
+            td = node.heartbeat
+            td = node.ip
+            td = node.geo_name
+            td = node.db_connection
+            td = node.message_queue_connection
+            td = node.queue_name
+            td = link_to "<i class=fi-pencil></i>".html_safe, edit_node_path(node)
+            td = link_to "<i class=fi-x></i>".html_safe, node, data: { confirm: "Are you sure?" }, method: :delete
 
-table
-  thead
-    tr
-      th Node
-      th Node status
-      th Node name
-      th Heartbeat
-      th Ip
-      th Geo name
-      th Db connection
-      th Message queue connection
-      th Queue name
-      th
-      th
-      th
-
-  tbody
-    - @nodes.each do |node|
-      tr
-        td = node.node_id
-        td = node.node_status
-        td = node.node_name
-        td = node.heartbeat
-        td = node.ip
-        td = node.geo_name
-        td = node.db_connection
-        td = node.message_queue_connection
-        td = node.queue_name
-        td = link_to "Show", node
-        td = link_to "Edit", edit_node_path(node)
-        td = link_to "Destroy", node, data: { confirm: "Are you sure?" }, method: :delete
-
-br
-
-= link_to "New Node", new_node_path
+    br
+    = link_to "Add new Node", new_node_path, class: "button success"

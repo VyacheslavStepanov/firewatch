@@ -1,6 +1,8 @@
-= simple_form_for @host do |f|
-  .form-inputs
-    = f.input :name
-    = f.input :domain, label: "Url"
-  .form-actions
-    = f.submit
+.row
+  .column-6.medium-8.column
+    = simple_form_for host do |f|
+      .inputs-group
+        = f.input :name
+        = f.input :domain, label: "Url"
+      .actions-group
+        = f.submit

@@ -1,40 +1,26 @@
-- if @hosts.count.zero?
-      h3
-        ="You don't have any hosts for monitoring. Create a new one."
-      br
+- if hosts.count.zero?
+  h3
+    ="You don't have any hosts for monitoring. Create a new one."
 - else
-  h4 Hosts being monitored
   table
+    caption Hosts being monitored
     thead
       tr
-        th Monitoring
+        th
         th Name
-        th Url
         th Status
-        th History
-        th Last check
+        th Last check time
         th Node
         th
         th
         th
 
     tbody
-      - @hosts.each do |host|
+      - hosts.each do |host|
         tr
           td
-            -if host.monitor_status == 1
-              span style="color:#008000"
-               b
-                ="Running"
-                span
-                =" "
-              = link_to "Stop", "hosts/" + host.id.to_s + "/stop"
-            -else
-              span style="color:#000000"
-               ="Paused "
-              = link_to "Play", "hosts/" + host.id.to_s + "/play"
-          td = host.name
-          td = host.domain
+            = link_to "<i class=#{host.status_icon} ></i>".html_safe, host.action_url
+          td = link_to host.name, "host/" + host.id.to_s + "/statuses"
           td
             -if host.monitor_status == 1
               -if host.last_status == 1
@@ -52,10 +38,9 @@
 
             -else
               ="N/A"
-          td = link_to "Status history", "host/" + host.id.to_s + "/statuses"
           td = host.last_check_string
-          td = host.last_node
+          td = host.last_location
           - if current_user.admin
-            td = link_to "Show", host
-          td = link_to "Edit", edit_host_path(host)
-          td = link_to "Delete", host, data: { confirm: "Are you sure?" }, method: :delete
+            td = link_to "<i class=fi-magnifying-glass></i>".html_safe, host
+          td = link_to "<i class=fi-pencil></i>".html_safe, edit_host_path(host)
+          td = link_to "<i class=fi-x></i>".html_safe, host, data: { confirm: "Are you sure?" }, method: :delete

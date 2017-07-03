@@ -1,33 +1,30 @@
 .row
-  .columns
-    h2
+  .large-12.column
+    h3
+      = title("Dashboard")
 
-    - if user_signed_in?
-      h3
-        = title("Dashboard")
-      javascript:
-        var dataset1={};
-      p
-      form action="/hosts" method="post"
-        input type="hidden" name="authenticity_token" value="=form_authenticity_token"
-        ="Add new host"
-        input type="hidden" name="utf8" value="%E2%9C%93"
-        input name="host[name]" type="hidden"
-        input name="host[domain]" id="host_domain" type="text" size="40"
-        input name="host[prot]" type="hidden" value="http"
-        input name="host[monitor_status]" type="hidden" value="0"
-        input name="host[last_status]" type="hidden"
-        input name="host[last_check(1i)]" type="hidden"
-        input name="host[last_check(2i)]" type="hidden"
-        input name="host[last_check(3i)]" type="hidden"
-        input name="host[last_check(4i)]" type="hidden"
-        input name="host[last_check(5i)]" type="hidden"
-        input name="redirectroot" type="hidden" value="1"
-        button type="submit" name="commit"
-          ="+ Submit for monitoring"
-      hr
+    p
+    .row
+      .large-4.column
+        form action="/hosts" method="post"
+          input type="hidden" name="authenticity_token" value="=form_authenticity_token"
+          ="Add new host"
+          input type="hidden" name="utf8" value="%E2%9C%93"
+          input name="host[name]" type="hidden"
+          input name="host[domain]" id="host_domain" type="text" size="40" required=true
+          input name="host[prot]" type="hidden" value="http"
+          input name="host[monitor_status]" type="hidden" value="0"
+          input name="host[last_status]" type="hidden"
+          input name="host[last_check(1i)]" type="hidden"
+          input name="host[last_check(2i)]" type="hidden"
+          input name="host[last_check(3i)]" type="hidden"
+          input name="host[last_check(4i)]" type="hidden"
+          input name="host[last_check(5i)]" type="hidden"
+          input name="redirectroot" type="hidden" value="1"
+          button type="submit" name="commit" class="button success"
+            ="Start monitoring"
     div id="hosts"
-      = render partial: "reload_hosts", locals: { hosts: @hosts }
+      = render partial: "reload_hosts", locals: { hosts: hosts }
 javascript:  setInterval(function() {
-     $.ajax({ url: "reload_hosts" })}, 10000);
+     $.ajax({ url: "reload_hosts" })}, 30000);
 

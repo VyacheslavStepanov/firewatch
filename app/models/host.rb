@@ -9,8 +9,4 @@ class Host < ApplicationRecord
   def prepare_domain
     self.domain = "http://" + domain if domain !~ /^http/
   end
-
-  def last_check_string
-    last_check || "N/A"
-  end
 end

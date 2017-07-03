@@ -1,22 +1,25 @@
-p
-  strong Name:
-  = @host.name
-p
-  strong Url:
-  = @host.domain
-p
-  strong Prot:
-  = @host.prot
-p
-  strong Mstatus:
-  = @host.monitor_status
-p
-  strong Last status:
-  = @host.last_status
-p
-  strong Last check:
-  = @host.last_check
+.row
+  .large-6.medium-8.column
 
-= link_to "Edit", edit_host_path(@host)
-'|
-= link_to "Back", hosts_path
+    p
+      strong Name:
+      = host.name
+    p
+      strong Url:
+      = host.domain
+    p
+      strong Prot:
+      = host.prot
+    p
+      strong Mstatus:
+      = host.monitor_status
+    p
+      strong Last status:
+      = host.last_status
+    p
+      strong Last check:
+      = host.last_check
+
+    = link_to "Edit", edit_host_path(host)
+    '|
+    = link_to "Back", hosts_path

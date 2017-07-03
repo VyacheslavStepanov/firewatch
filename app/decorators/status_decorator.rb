@@ -2,33 +2,32 @@ class StatusDecorator < Draper::Decorator
   delegate_all
 
   def error
-    return error_description if error_description
-    I18n.t("http.error_" + status)
+    return "" if status.status == 200
+    return error_description unless error_description == ""
+    I18n.t("http.error_#{status.status}")
   end
 
   def status_string
     if status.status != 200
-      then "Down"
+      "Down"
     else
       "Up"
     end
   end
 
+  def time
+    status.created_at.strftime("%H:%M:%S")
+  end
+
   def style
-    if status.status != 200
-      then "color:#FF0000"
-    else
-      "color:#008000"
-    end
+    status.status != 200 ? "color:#FF0000; text-align: center;" : "color:#008000; text-align: center;"
   end
 
   def node_location
-    node = Node.find_by(node_id: node_id)
     node.present? ? node.geo_name : "N/A"
   end
 
   def node_ip
-    node = Node.find_by(node_id: node_id)
     node.present? ? node.ip : "N/A"
   end
 

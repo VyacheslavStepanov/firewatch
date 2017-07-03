@@ -1,5 +1,3 @@
-var ctx = document.getElementById("statChart");
-
 function newDateString(days) {
           return moment().add(days, 'd').format();
 }
@@ -12,6 +10,12 @@ function newDate(days) {
           return moment().add(days, 'd').toDate();
 }
 
+function getPoint(tooltipItem,data) {
+          let datasets=data["datasets"];
+          let dataset= datasets[tooltipItem.datasetIndex];
+          return dataset.data[tooltipItem.index];
+}
+
 var config = {
 			type: 'line',
 			data: {
@@ -19,7 +23,7 @@ var config = {
 			},
 			options: {
 				responsive: false,
-                                        maintainAspectRatio: true,
+        maintainAspectRatio: true,
 	            title:{
 	                display:true,
 	                text:"Response Time Chart"
@@ -28,16 +32,17 @@ var config = {
 					xAxes: [{
 						type: "time",
 						display: true,
-						scaleLabel: {
-							display: true,
-							labelString: 'Date'
+            time: {
+							displayFormats: {
+                minute: "h:mm"
+              }
 						}
 					}],
 					yAxes: [{
 						display: true,
 						scaleLabel: {
 							display: true,
-							labelString: 'time (ms)'
+							labelString: 'response time (ms)'
 						}
 					}]
 				},
@@ -45,14 +50,24 @@ var config = {
           titleFontSize : 16,
           callbacks: {
             title: function(tooltipItems, data) {
-                return "Point description";
+                return "";
             },
-
             label: function(tooltipItem, data) {
-                return "Response time: "+tooltipItem.yLabel;
+              let point = getPoint(tooltipItem, data)
+              return point["location"];
             },
             afterLabel: function(tooltipItem, data) {
-                return "Date: "+tooltipItem.xLabel;
+                let datasets=data["datasets"];
+                let dataset= datasets[tooltipItem.datasetIndex];
+                let point= dataset.data[tooltipItem.index];
+                let result=[];
+                result.push("Response time: "+tooltipItem.yLabel);
+                result.push("Time: "+point["time"]);
+                result.push("Status: "+point["status"]);
+                if (point["error"]!="") {
+                  result.push("Error: "+point["error"]);
+                }
+                return result;
             }
           }
         }
@@ -60,4 +75,4 @@ var config = {
 		};
 
 
-var myChart = new Chart(ctx, config);
+var myChart = new Chart(document.getElementById("statChart"), config);

@@ -1,19 +1,21 @@
-p
-  strong Aggregator:
-  = @aggregator.aggregator_id
-p
-  strong Aggregator status:
-  = @aggregator.aggregator_status
-p
-  strong Aggregator name:
-  = @aggregator.aggregator_name
-p
-  strong Db connection:
-  = @aggregator.db_connection
-p
-  strong Message queue connection:
-  = @aggregator.message_queue_connection
+.row
+  .large-12.column
+    p
+      strong Aggregator:
+      = aggregator.aggregator_id
+    p
+      strong Aggregator status:
+      = aggregator.aggregator_status
+    p
+      strong Aggregator name:
+      = aggregator.aggregator_name
+    p
+      strong Db connection:
+      = aggregator.db_connection
+    p
+      strong Message queue connection:
+      = aggregator.message_queue_connection
 
-= link_to "Edit", edit_aggregator_path(@aggregator)
-'|
-= link_to "Back", aggregators_path
+    = link_to "Edit", edit_aggregator_path(aggregator)
+    '|
+    = link_to "Back", aggregators_path

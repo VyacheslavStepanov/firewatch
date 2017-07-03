@@ -1,85 +1,56 @@
 class HostsController < ApplicationController
-  before_action :set_host, only: %i(show edit update destroy play stop)
-  before_action :require_correct_user, only: %i(show edit update destroy play stop)
+  expose_decorated(:host)
+  expose_decorated(:hosts) { current_user.hosts.all }
+  expose_decorated(:statuses) { host.statuses.all.order("created_at desc").limit(100) }
 
-  # GET /hosts
-  def statuses
-    @host = Host.find(params[:id])
-    @statuses = Status.where(host_id: @host.id).order("id desc").limit(100).decorate
-    redirect_to root_url and return if @host.domain.empty?
+  def status_history
   end
 
   def reload_history
-    @host = Host.find(params[:id])
-    @statuses = Status.where(host_id: @host.id).order("id desc").limit(100).decorate
-    respond_to do |format|
-      format.js
-    end
   end
 
-  # GET /hosts
   def index
-    @hosts = Host.all
     redirect_to root_url
   end
 
-  # GET /hosts/play
   def play
-    @host.monitor_status = 1
-    @host.save
+    host.monitor_status = 1
+    host.save
     redirect_to root_url
   end
 
-  # GET /hosts/stop
   def stop
-    @host.monitor_status = 0
-    @host.save
+    host.monitor_status = 0
+    host.save
     redirect_to root_url
   end
 
-  # GET /hosts/1
   def show
   end
 
-  # GET /hosts/new
-  def new
-    @host = Host.new
+  def path
   end
 
-  # GET /hosts/1/edit
   def edit
   end
 
-  # POST /hosts
   def create
-    @host = Host.new(host_params)
-    redirect_to root_url and return if @host.domain.empty?
-    update_params(@host)
-    redirect_to root_url and return if @host.save
-    render :new
+    update_params(host)
+    host.save
+    respond_with host, location: -> { root_path }
   end
 
-  # PATCH/PUT /hosts/1
   def update
-    if @host.update(host_params)
-      redirect_to root_url, notice: "Host #{@host.name} was successfully updated."
-    else
-      render :edit
-    end
+    host.update(host_params)
+    respond_with host, location: -> { root_path }
   end
 
-  # DELETE /hosts/1
   def destroy
-    @host.destroy
-    redirect_to hosts_url, notice: "Host was successfully destroyed."
+    host.destroy
+    respond_with host
   end
 
   private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_host
-    @host = Host.find(params[:id])
-  end
 
   def update_params(host)
     host.name = host.domain
@@ -88,12 +59,7 @@ class HostsController < ApplicationController
     host.user_id ||= current_user.id
   end
 
-  # Only allow a trusted parameter "white list" through.
   def host_params
     params.require(:host).permit(:name, :domain, :user_id, :prot, :monitor_status, :last_status, :last_check)
-  end
-
-  def require_correct_user
-    redirect_to hosts_url if !user_signed_in? or !@host or @host.user_id != current_user.id
   end
 end

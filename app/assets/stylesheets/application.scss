@@ -1,2 +1,52 @@
 @import "core/all";
 @import "components/all";
+@import "foundation-icons";
+
+.fi-play {
+  color: $black;
+  font-size: 1.5rem;
+}
+
+.fi-pause {
+  color: $black;
+  font-size: 1.5rem;
+}
+
+.fi-x {
+  color: $red;
+  font-size: 1.5rem;
+}
+
+.fi-magnifying-glass {
+  color: $black;
+  font-size: 1.5rem;
+}
+
+.fi-pencil {
+  color: $black;
+  font-size: 1.5rem;
+}
+
+caption {
+  padding: 10px;
+  background: $blue;
+  color: $white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+}
+
+th {
+  padding: 10px;
+  border-bottom: 3px solid $dark-gray;
+
+  &.header {
+    text-align: center;
+  }
+}
+
+td {
+  &.item {
+    text-align: center;
+  }
+}

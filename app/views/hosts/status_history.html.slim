@@ -1,0 +1,126 @@
+.row
+  .large-12.column
+    h1 Host status history
+
+    h3 = "Host: #{host.name}"
+
+    hr
+
+    = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"
+
+    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"
+
+    div align="center" id="main"
+
+      canvas id="statChart" width="1000" height="300"
+
+    hr
+    div id="history"
+      = render partial: "reload_history", locals: { statuses: statuses }
+    br
+
+
+javascript:
+  let points_dataset=[];
+  function update_chart(){
+    points_dataset=[];
+    let elements = document.getElementsByTagName('tr');
+    let color_pallete = [
+      "rgba(3, 169, 244", // light blue
+      "rgba(139, 195, 74", // light green
+      "rgba(156, 39, 176", // purple
+      "rgba(255, 235, 59", // yellow
+      "rgba(63, 81, 181", //  blue
+      "rgba(255, 152, 0"]; // orange
+
+    let data=[];
+    for (let i = 0; i < elements.length; i++) {
+      let tds = elements[i].getElementsByTagName('*');
+      if (i!=0) {
+        data.push(
+          {
+            x: moment(tds[1].innerHTML).subtract(3,'hours').format(),
+            y:tds[4].innerHTML,
+            location:tds[5].innerHTML,
+            error:tds[6].innerHTML,
+            time:tds[7].innerHTML,
+            status:tds[3].innerHTML
+          });
+      }
+    }
+
+    let groups = { };
+    data.forEach(function(item){
+      let list = groups[item.location];
+
+      if(list){
+        list.push(item);
+      } else{
+        groups[item.location] = [item];
+      }
+    });
+    let i=0;
+    for (let key in groups) {
+      let color = color_pallete[i];
+      let backgroundColor = color +",0.2)";
+      let borderColor = color +",1)";
+      let dataset={
+        label: key,
+        data: [
+        ],
+        fill: true,
+        backgroundColor: color +",0.2)",
+        borderColor: color +",1)",
+        borderWidth: 1,
+        lineTension: 0,
+        //pointBackgroundColor:[],
+        pointBorderColor: [],
+        pointRadius:[]
+      };
+      item=groups[key]
+
+      for (let key2 in item){
+        point = item[key2];
+        dataset.data.push({
+          x: point["x"],
+          y: point["y"],
+          location: point["location"],
+          error: point["error"],
+          status: point["status"],
+          time: point["time"]
+        });
+        dataset.pointRadius.push(point["status"]=="Up" ? 3 : 6);
+        dataset.pointBorderColor.push(point["status"]=="Up" ? borderColor : "#FF0000");
+      }
+      points_dataset.push(dataset);
+      i++;
+    };
+  };
+  update_chart()
+= javascript_include_tag "stats.js"
+
+= javascript_include_tag "stats.js"
+/ script:
+/   //Get the canvas & context
+/   | var c = document.getElementById('statChart');
+/   //var ct = c.get(0).getContext('2d');
+/   var container = c.parent();
+
+/   //Run function when browser resizes
+/   $(window).resize( respondCanvas );
+
+/   function respondCanvas(){
+/       c.attr('width', $(container).width() ); //max width
+/       c.attr('height', $(container).height() ); //max height
+/       alert("window was resized")
+/       updateCanvas();
+/   }
+
+/   //Initial call
+/   respondCanvas();
+
+javascript:
+  setInterval(function() {
+    $.ajax({ url: "reload_history" })
+    update_chart();
+  }, 30000);

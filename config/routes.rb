@@ -2,14 +2,20 @@ Rails.application.routes.draw do
   resources :aggregators
   resources :nodes
   resources :hosts
-  get "hosts/:id/play" => "hosts#play"
-  get "hosts/:id/stop" => "hosts#stop"
-  get "host/:id/statuses" => "hosts#statuses"
-  get "host/:id/reload_history" => "hosts#reload_history"
-  get "heartbeat/:id" => "pages#heartbeat"
-  get "reload_hosts" => "pages#reload_hosts"
   resources :statuses
+
   devise_for :users, controllers: { registrations: "users/registrations" }
-  root to: "pages#dashboard"
-  get "debug", to: "pages#debug"
+
+  authenticated :user do
+    root to: "pages#dashboard", as: :authenticated_root
+    get "hosts/:id/play", to: "hosts#play"
+    get "hosts/:id/stop", to: "hosts#stop"
+    get "host/:id/statuses", to: "hosts#status_history"
+    get "host/:id/reload_history", to: "hosts#reload_history"
+    get "reload_hosts", to: "pages#reload_hosts"
+    get "debug", to: "pages#debug"
+  end
+
+  get "heartbeat/:id", to: "pages#heartbeat"
+  root to: "pages#home"
 end

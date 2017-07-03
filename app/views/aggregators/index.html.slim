@@ -1,29 +1,32 @@
-h1 Listing aggregators
+.row
+  .large-12.column
+    h1
 
-table
-  thead
-    tr
-      th Aggregator
-      th Aggregator status
-      th Aggregator name
-      th Db connection
-      th Message queue connection
-      th
-      th
-      th
+    table
+      caption Aggregators
+      thead
+        tr
+          th Id
+          th Status
+          th Name
+          th Db connection
+          th Message queue connection
+          th
+          th
+          th
 
-  tbody
-    - @aggregators.each do |aggregator|
-      tr
-        td = aggregator.aggregator_id
-        td = aggregator.aggregator_status
-        td = aggregator.aggregator_name
-        td = aggregator.db_connection
-        td = aggregator.message_queue_connection
-        td = link_to "Show", aggregator
-        td = link_to "Edit", edit_aggregator_path(aggregator)
-        td = link_to "Destroy", aggregator, data: { confirm: "Are you sure?" }, method: :delete
+      tbody
+        - aggregators.each do |aggregator|
+          tr
+            td = aggregator.aggregator_id
+            td = aggregator.aggregator_status
+            td = aggregator.aggregator_name
+            td = aggregator.db_connection
+            td = aggregator.message_queue_connection
+            td = link_to "<i class=fi-magnifying-glass></i>".html_safe, aggregator
+            td = link_to "<i class=fi-pencil></i>".html_safe, edit_aggregator_path(aggregator)
+            td = link_to "<i class=fi-x></i>".html_safe, aggregator, data: { confirm: "Are you sure?" }, method: :delete
 
-br
+    br
 
-= link_to "New Aggregator", new_aggregator_path
+    = link_to "Add new Aggregator", new_aggregator_path, class: "button success"
