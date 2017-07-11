@@ -2,7 +2,7 @@
   .large-12.column
     p
       strong Aggregator:
-      = aggregator.aggregator_id
+      = aggregator.id
     p
       strong Aggregator status:
       = aggregator.aggregator_status
@@ -16,6 +16,6 @@
       strong Message queue connection:
       = aggregator.message_queue_connection
 
-    = link_to "Edit", edit_aggregator_path(aggregator)
-    '|
+    = link_to "Edit", edit_aggregator_path(aggregator), class: "button success"
+    br
     = link_to "Back", aggregators_path

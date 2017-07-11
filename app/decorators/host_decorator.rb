@@ -14,7 +14,7 @@ class HostDecorator < Draper::Decorator
   end
 
   def last_location
-    node = Node.find_by(node_id: last_node)
+    node = Node.find(last_node) unless last_node == 0
     node ? node.geo_name : "N/A"
   end
 

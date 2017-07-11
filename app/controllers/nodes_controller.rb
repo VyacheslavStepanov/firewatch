@@ -3,7 +3,6 @@ class NodesController < ApplicationController
   expose(:nodes) { Node.all }
 
   NODE_PERMITTED_PARAMS = %i(
-    node_id
     node_status
     node_name
     ip
@@ -24,17 +23,17 @@ class NodesController < ApplicationController
 
   def create
     node.save
-    respond_with node
+    respond_with node, location: -> { nodes_path }
   end
 
   def update
     node.update(node_params)
-    respond_with node
+    respond_with node, location: -> { nodes_path }
   end
 
   def destroy
     node.destroy
-    respond_with node
+    respond_with node, location: -> { nodes_path }
   end
 
   private

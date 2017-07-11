@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170626100504) do
+ActiveRecord::Schema.define(version: 20170704095951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "adminpack"
 
   create_table "aggregators", force: :cascade do |t|
-    t.integer "aggregator_id"
     t.integer "aggregator_status"
     t.string  "aggregator_name"
     t.string  "db_connection"
@@ -38,7 +37,6 @@ ActiveRecord::Schema.define(version: 20170626100504) do
   end
 
   create_table "nodes", force: :cascade do |t|
-    t.integer  "node_id"
     t.integer  "node_status"
     t.string   "node_name"
     t.string   "ip"

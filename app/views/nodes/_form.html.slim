@@ -2,7 +2,6 @@
   .large-6.medium-8.column
     = simple_form_for node do |f|
       .inputs-group
-        = f.input :node_id
         = f.input :node_status
         = f.input :node_name
         = f.input :ip
@@ -11,4 +10,4 @@
         = f.input :message_queue_connection
         = f.input :queue_name
       .actions-group
-        = f.submit
+        = f.button :submit, class: "button success"

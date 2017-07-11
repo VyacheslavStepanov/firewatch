@@ -3,7 +3,6 @@ class AggregatorsController < ApplicationController
   expose(:aggregators) { Aggregator.all }
 
   AGGREGATOR_PERMITTED_PARAMS = %i(
-    aggregator_id
     aggregator_status
     aggregator_name
     db_connection
@@ -24,17 +23,17 @@ class AggregatorsController < ApplicationController
 
   def create
     aggregator.save
-    respond_with aggregator
+    respond_with aggregator, location: -> { aggregators_path }
   end
 
   def update
     aggregator.update(aggregator_params)
-    respond_with
+    respond_with aggregator, location: -> { aggregators_path }
   end
 
   def destroy
     aggregator.destroy
-    redirect_to aggregators_url, notice: "Aggregator was successfully destroyed."
+    respond_with aggregator, location: -> { aggregators_path }
   end
 
   private

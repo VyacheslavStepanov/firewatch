@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  expose_decorated(:hosts) { current_user.hosts.all.order("name DESC") }
+  expose_decorated(:hosts) { current_user.hosts.all.order("name DESC").limit(10) }
   expose(:node)
   def home
   end

@@ -1,17 +1,5 @@
 var ctx = document.getElementById("statChart");
 
-function newDateString(days) {
-  return moment().add(days, 'd').format();
-}
-
-function randomScalingFactor() {
-  return Math.round(Math.random() * 100 * (Math.random() > 0.5 ? 1 : 1));
-}
-
-function newDate(days) {
-  return moment().add(days, 'd').toDate();
-}
-
 function getPoint(tooltipItem,data) {
   var datasets=data["datasets"];
   var dataset= datasets[tooltipItem.datasetIndex];
@@ -73,6 +61,5 @@ var config = {
     }
 	}
 };
-
 
 var myChart = new Chart(ctx, config);

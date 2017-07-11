@@ -2,10 +2,9 @@
   .large-6.medium-8.column
     = simple_form_for aggregator do |f|
       .inputs-group
-        = f.input :aggregator_id
         = f.input :aggregator_status
         = f.input :aggregator_name
         = f.input :db_connection
         = f.input :message_queue_connection
       .actions-group
-        = f.submit
+        = f.button :submit, "Add ", class: "button success"

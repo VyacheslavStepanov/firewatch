@@ -97,25 +97,8 @@ javascript:
     };
   };
   update_chart()
+
 = javascript_include_tag "stats.js"
-/ script:
-/   //Get the canvas & context
-/   | var c = document.getElementById('statChart');
-/   //var ct = c.get(0).getContext('2d');
-/   var container = c.parent();
-
-/   //Run function when browser resizes
-/   $(window).resize( respondCanvas );
-
-/   function respondCanvas(){
-/       c.attr('width', $(container).width() ); //max width
-/       c.attr('height', $(container).height() ); //max height
-/       alert("window was resized")
-/       updateCanvas();
-/   }
-
-/   //Initial call
-/   respondCanvas();
 
 javascript:
   setInterval(function() {

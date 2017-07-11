@@ -18,7 +18,7 @@
       tbody
         - aggregators.each do |aggregator|
           tr
-            td = aggregator.aggregator_id
+            td = aggregator.id
             td = aggregator.aggregator_status
             td = aggregator.aggregator_name
             td = aggregator.db_connection
@@ -26,7 +26,5 @@
             td = link_to "<i class=fi-magnifying-glass></i>".html_safe, aggregator
             td = link_to "<i class=fi-pencil></i>".html_safe, edit_aggregator_path(aggregator)
             td = link_to "<i class=fi-x></i>".html_safe, aggregator, data: { confirm: "Are you sure?" }, method: :delete
-
-    br
 
     = link_to "Add new Aggregator", new_aggregator_path, class: "button success"
