@@ -1,14 +1,14 @@
-class StatusDecorator < Draper::Decorator
-  delegate_all
+class StatusDecorator < ApplicationDecorator
+  delegate :status, :error_description, :created_at, :node, :url, :response_time, :node_id
 
   def error
-    return "" if status.status == 200
+    return "" if status == 200
     return error_description unless error_description == ""
     I18n.t("http.error_#{status.status}")
   end
 
   def status_string
-    if status.status != 200
+    if status != 200
       "Down"
     else
       "Up"
@@ -16,11 +16,11 @@ class StatusDecorator < Draper::Decorator
   end
 
   def time
-    status.created_at.strftime("%H:%M:%S")
+    created_at.strftime("%H:%M:%S")
   end
 
   def style
-    status.status != 200 ? "color:#FF0000; text-align: center;" : "color:#008000; text-align: center;"
+    status != 200 ? "color:#FF0000; text-align: center;" : "color:#008000; text-align: center;"
   end
 
   def node_location

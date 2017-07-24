@@ -33,6 +33,7 @@ gem "decent_exposure"
 gem "devise"
 gem "draper"
 gem "flamegraph"
+gem "gon"
 gem "google-analytics-rails"
 gem "health_check"
 gem "interactor"
@@ -47,6 +48,7 @@ gem "rack-mini-profiler", require: false, git: "https://github.com/MiniProfiler/
 gem "responders"
 gem "rollbar"
 gem "seedbank"
+gem "simple_token_authentication", "~> 1.0"
 gem "stackprof"
 
 group :staging, :production do

@@ -6,3 +6,6 @@
       - if current_user.admin
         li = link_to "Nodes", nodes_path
         li = link_to "Aggregators", aggregators_path
+        li = link_to "Notification types", notification_types_path
+      - else
+        li = link_to "Notifications settings", notifications_path

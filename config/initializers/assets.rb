@@ -4,6 +4,7 @@
 Rails.application.config.assets.version = ENV.fetch("ASSETS_VERSION", "1.0")
 Rails.application.config.assets.precompile += %w(mailer)
 Rails.application.config.assets.precompile += %w(stats.js)
+Rails.application.config.assets.precompile += %w(update_labels.js)
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.

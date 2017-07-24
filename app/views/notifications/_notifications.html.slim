@@ -1,0 +1,12 @@
+- notifications.each do |notification|
+  tr
+    td = notification.name
+    - if notification.notification_type
+      td = notification.notification_type.name
+    - else
+      td
+    td = notification.parameter_1
+    td = notification.parameter_2
+    td = notification.parameter_3
+    td = link_to "Edit", edit_notification_path(notification)
+    td = link_to "Destroy", notification, data: { confirm: "Are you sure?" }, method: :delete

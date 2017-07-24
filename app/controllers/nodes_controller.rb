@@ -1,4 +1,6 @@
 class NodesController < ApplicationController
+  before_action :require_authentication!
+
   expose(:node)
   expose(:nodes) { Node.all }
 

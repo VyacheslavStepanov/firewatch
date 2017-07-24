@@ -1,0 +1,20 @@
+.row
+  .large-12.column
+
+    table
+      caption Listing notification types
+      thead
+        tr
+          th Name
+          th Parameter 1 name
+          th Parameter 2 name
+          th Parameter 3 name
+          th
+          th
+          th
+
+      tbody
+        == render "notification_types"
+    br
+
+    = link_to "New Notification type", new_notification_type_path, class: "button success"

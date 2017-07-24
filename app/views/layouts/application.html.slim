@@ -15,6 +15,7 @@ html class="no-js" lang="en"
     = javascript_tag "window.App = {}"
 
     == analytics_init if GA.tracker
+    = include_gon
 
   body
     = render "navigation"

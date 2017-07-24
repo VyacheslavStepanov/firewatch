@@ -13,14 +13,13 @@
         th Node
         th
         th
-        th
 
     tbody
       - hosts.each do |host|
         tr
           td
-            = link_to "<i class=#{host.status_icon} ></i>".html_safe, host.action_url
-          td = link_to host.name, "host/" + host.id.to_s + "/statuses"
+            = link_to "<i class=#{host.status_icon} ></i>".html_safe, host_monitoring_path(host), method: :patch
+          td = link_to host.name, status_history_host_path(host.id)
           td
             -if host.monitor_status == 1
               -if host.last_status == 1
@@ -40,7 +39,5 @@
               ="N/A"
           td = host.last_check_string
           td = host.last_location
-          - if current_user.admin
-            td = link_to "<i class=fi-magnifying-glass></i>".html_safe, host
           td = link_to "<i class=fi-pencil></i>".html_safe, edit_host_path(host)
           td = link_to "<i class=fi-x></i>".html_safe, host, data: { confirm: "Are you sure?" }, method: :delete

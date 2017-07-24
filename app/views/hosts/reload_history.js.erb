@@ -1,1 +1,6 @@
 $("#history").html("<%= escape_javascript(render 'reload_history', statuses: statuses) %>");
+$('#paginator').html("<%= escape_javascript(paginate(statuses, :remote=>true, params: { controller: 'hosts', action: 'reload_history' }).to_s)%>");
+
+update_chart();
+myChart.config.data = { datasets: points_dataset };
+myChart.update();

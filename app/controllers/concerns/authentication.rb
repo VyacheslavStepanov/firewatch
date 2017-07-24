@@ -14,4 +14,8 @@ module Authentication
   def devise_parameter_sanitizer
     resource_class == User ? User::ParameterSanitizer.new(User, :user, params) : super
   end
+
+  def require_authentication!
+    redirect_to(root_path) unless current_user.present?
+  end
 end

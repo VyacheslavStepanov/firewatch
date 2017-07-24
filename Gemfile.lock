@@ -158,6 +158,11 @@ GEM
     foundation_emails (2.2.1.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    gon (6.1.0)
+      actionpack (>= 3.0)
+      json
+      multi_json
+      request_store (>= 1.0)
     google-analytics-rails (1.1.0)
     guard (2.14.1)
       formatador (>= 0.2.4)
@@ -363,6 +368,10 @@ GEM
     simple_form (3.4.0)
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
+    simple_token_authentication (1.15.1)
+      actionmailer (>= 3.2.6, < 6)
+      actionpack (>= 3.2.6, < 6)
+      devise (>= 3.2, < 6)
     simplecov (0.13.0)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
@@ -457,6 +466,7 @@ DEPENDENCIES
   formulaic
   foundation-icons-sass-rails
   foundation-rails
+  gon
   google-analytics-rails
   guard-rspec
   health_check
@@ -495,6 +505,7 @@ DEPENDENCIES
   seedbank
   shoulda-matchers
   simple_form
+  simple_token_authentication (~> 1.0)
   slim
   slim-rails
   slim_lint

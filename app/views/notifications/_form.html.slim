@@ -1,0 +1,43 @@
+= simple_form_for notification do |f|
+  .inputs-group
+    = f.input :name, required: true
+    = f.association :notification_type, include_blank: false
+    = f.input :parameter_1, label: notification.label_1, label_html: notification.parameter_1_display, \
+      input_html: notification.parameter_1_display, required: true
+    = f.input :parameter_2, label: notification.label_2, label_html: notification.parameter_2_display, \
+      input_html: notification.parameter_2_display, required: true
+    = f.input :parameter_3, label: notification.label_3, label_html: notification.parameter_3_display, \
+      input_html: notification.parameter_3_display, required: true
+    = f.hidden_field :user
+  .actions-group
+    = f.button :submit, class: "button success"
+
+javascript:
+
+  function update_labels() {
+    let id=document.getElementById("notification_notification_type_id").value;
+    for(var i = 0; i < gon.types.length; i++) {
+      if (gon.types[i].id==id) {
+        for(var j =1; j<=3; j++){
+          update_label(i,j);
+        }
+      }
+    }
+  }
+  function update_label(i,j){
+    let div = document.getElementsByClassName("notification_parameter_"+j)[0];
+    let label = div.childNodes[0];
+    let input = div.childNodes[1];
+    let labelName = gon.types[i]["parameter_"+j+"_name"];
+    input.value="";
+
+    if (labelName=="") {
+      input.setAttribute("style", "display: none");
+      label.setAttribute("style", "display: none");
+    } else {
+      label.innerHTML=labelName;
+      input.setAttribute("style", "display:");
+      label.setAttribute("style", "display:");
+    }
+  }
+  document.getElementById("notification_notification_type_id").onchange = update_labels;

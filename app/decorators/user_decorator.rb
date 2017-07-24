@@ -1,5 +1,5 @@
 class UserDecorator < ApplicationDecorator
-  delegate :id, :full_name, :email, :admin
+  delegate :id, :full_name, :email, :admin, :notifications
 
   def full_name_with_email
     "#{object.full_name} (#{object.email})"

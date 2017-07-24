@@ -1,4 +1,6 @@
 class AggregatorsController < ApplicationController
+  before_action :require_authentication!
+
   expose(:aggregator)
   expose(:aggregators) { Aggregator.all }
 

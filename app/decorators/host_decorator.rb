@@ -1,12 +1,8 @@
-class HostDecorator < Draper::Decorator
-  delegate_all
+class HostDecorator < ApplicationDecorator
+  delegate :domain, :monitor_status, :last_check, :name, :last_status, :id, :last_node, :notifications
 
   def status_icon
     paused? ? "fi-play" : "fi-pause"
-  end
-
-  def action_url
-    "hosts/#{id}#{paused? ? '/play' : '/stop'}"
   end
 
   def paused?

@@ -1,0 +1,10 @@
+.row
+  .large-6.column
+    = simple_form_for notification_type do |f|
+      .inputs-group
+        = f.input :name
+        = f.input :parameter_1_name
+        = f.input :parameter_2_name
+        = f.input :parameter_3_name
+      .actions-group
+        = f.button :submit

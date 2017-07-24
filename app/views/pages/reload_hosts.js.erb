@@ -1,1 +1,3 @@
 $('#hosts').html("<%= escape_javascript(render 'reload_hosts', hosts: hosts) %>");
+$('#paginator').html("<%= escape_javascript(paginate(hosts, :remote=>true, params: { controller: 'pages', action: 'reload_hosts' }).to_s)%>");
+

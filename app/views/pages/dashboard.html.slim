@@ -23,8 +23,9 @@
           input name="redirectroot" type="hidden" value="1"
           button type="submit" name="commit" class="button success"
             ="Start monitoring"
+    div id="paginator"
+      = paginate hosts, remote: true, params: { controller: "pages", action: "reload_hosts" }
     div id="hosts"
       = render partial: "reload_hosts", locals: { hosts: hosts }
 javascript:  setInterval(function() {
      $.ajax({ url: "reload_hosts" })}, 30000);
-

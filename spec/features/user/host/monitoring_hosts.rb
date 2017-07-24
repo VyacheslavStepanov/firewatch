@@ -3,10 +3,6 @@ require "rails_helper"
 feature "monitoring host" do
   include_context "current_user_is_signed"
 
-  let(:host) { create(:host) }
-
-  subject(:host)
-
   scenario "authorized user can start and stop monitoring of host" do
     visit root_path
 
