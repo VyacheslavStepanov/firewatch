@@ -4,7 +4,7 @@ class StatusDecorator < ApplicationDecorator
   def error
     return "" if status == 200
     return error_description unless error_description == ""
-    I18n.t("http.error_#{status.status}")
+    I18n.t("http.error_#{status}")
   end
 
   def status_string
