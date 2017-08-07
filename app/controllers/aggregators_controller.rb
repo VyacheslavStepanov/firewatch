@@ -1,5 +1,6 @@
 class AggregatorsController < ApplicationController
   before_action :require_authentication!
+  before_action :require_administrator_authority
 
   expose(:aggregator)
   expose(:aggregators) { Aggregator.all }
@@ -42,5 +43,9 @@ class AggregatorsController < ApplicationController
 
   def aggregator_params
     params.require(:aggregator).permit(AGGREGATOR_PERMITTED_PARAMS)
+  end
+
+  def require_administrator_authority
+    redirect_to root_path unless current_user.admin
   end
 end

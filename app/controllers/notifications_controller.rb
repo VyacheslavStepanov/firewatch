@@ -1,5 +1,6 @@
 class NotificationsController < ApplicationController
   before_action :require_authentication!
+  before_action :require_correct_user, only: %i(show edit update destroy)
 
   expose(:notification)
   expose(:notifications) { current_user.notifications.all }
@@ -46,5 +47,9 @@ class NotificationsController < ApplicationController
 
   def notification_params
     params.require(:notification).permit(*PERMITTED_NOTIFICATION_PARAMS)
+  end
+
+  def require_correct_user
+    redirect_to notifications_path unless notification and notification.user_id == current_user.id
   end
 end

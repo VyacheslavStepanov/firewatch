@@ -5,7 +5,10 @@
       td = notification.notification_type.name
     - else
       td
-    td = notification.parameter_1
+    - if notification.parameter_1.length < 4 || (notification.parameter_1.include? "@")
+      td = notification.parameter_1
+    - else
+      td = "*" * (notification.parameter_1.length - 3) + notification.parameter_1.split(//).last(3).join
     td = notification.parameter_2
     td = notification.parameter_3
     td = link_to "Edit", edit_notification_path(notification)

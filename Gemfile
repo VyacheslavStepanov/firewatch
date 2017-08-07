@@ -28,6 +28,7 @@ gem "simple_form"
 gem "slim"
 
 # all other gems
+gem "browser-timezone-rails"
 gem "decent_decoration"
 gem "decent_exposure"
 gem "devise"
@@ -40,7 +41,6 @@ gem "interactor"
 gem "kaminari"
 gem "memory_profiler"
 gem "nokogiri", "1.7.2"
-
 gem "puma"
 gem "pundit"
 gem "rack-canonical-host"
@@ -50,6 +50,7 @@ gem "rollbar"
 gem "seedbank"
 gem "simple_token_authentication", "~> 1.0"
 gem "stackprof"
+gem "validate_url"
 
 group :staging, :production do
   gem "newrelic_rpm"

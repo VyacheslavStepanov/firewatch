@@ -4,7 +4,12 @@ class HostMonitoringsController < ApplicationController
   expose_decorated(:host)
 
   def update
-    host.monitor_status = host.monitor_status == 1 ? 0 : 1
+    if host.monitor_status == 1
+      host.monitor_status = 0
+      host.last_status = nil
+    else
+      host.monitor_status = 1
+    end
     host.save
     redirect_to root_url
   end

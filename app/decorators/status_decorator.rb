@@ -1,5 +1,5 @@
 class StatusDecorator < ApplicationDecorator
-  delegate :status, :error_description, :created_at, :node, :url, :response_time, :node_id
+  delegate :id, :status, :error_description, :created_at, :node, :url, :response_time, :node_id
 
   def error
     return "" if status == 200

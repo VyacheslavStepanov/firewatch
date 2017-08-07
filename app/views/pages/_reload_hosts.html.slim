@@ -27,17 +27,20 @@
                  span style="color:#008000"
                   ="UP"
               -else
-                -if host.last_status == 0 and host.last_check.present?
+                -if host.last_status == 0
                   b
                     span style="color:#FF0000"
                       ="DOWN"
                 -else
-                  b
-                    span ="N/A"
+                  ="Pending.."
 
             -else
               ="N/A"
-          td = host.last_check_string
-          td = host.last_location
+          td
+            -if host.last_check.present?
+              = host.last_check_string
+            -else
+              ="Pending.."
+          td  = host.last_location
           td = link_to "<i class=fi-pencil></i>".html_safe, edit_host_path(host)
           td = link_to "<i class=fi-x></i>".html_safe, host, data: { confirm: "Are you sure?" }, method: :delete

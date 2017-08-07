@@ -1,5 +1,6 @@
 class NotificationTypesController < ApplicationController
   before_action :require_authentication!
+  before_action :require_administrator_authority
 
   expose(:notification_type)
   expose(:notification_types) { NotificationType.all }
@@ -39,5 +40,9 @@ class NotificationTypesController < ApplicationController
 
   def notification_type_params
     params.require(:notification_type).permit(*PERMITTED_NOTIFICATION_PARAMS)
+  end
+
+  def require_administrator_authority
+    redirect_to root_path unless current_user.admin
   end
 end

@@ -12,10 +12,18 @@ table id="stat_table"
         td.item = status.url
         td style="display:none;" = status.created_at.iso8601
         td.item = status.created_at.strftime("%H:%M:%S %d.%m.%Y")
-        td.has-tip.data-tooltip aria-haspopup="true" data-disable-hover="false" style=status.style title=status.error
-          = status.status_string
+        td style="display:none;" = status.status_string
+        td
+          - if status.status == 200
+            span style="color:#008000" =status.status_string.to_s
+          - else
+            button class="button small alert" data-open="status#{status.id}" =status.status_string
         td.item = status.response_time
         td.has-tip.data-tooltip aria-haspopup="true" data-disable-hover = "false" title = status.tooltip
           = status.node_location
         td style="display:none;" =status.error
         td style="display:none;" =status.time
+        div(class="reveal" id="status#{status.id}" data-reveal)
+          p =status.error
+          button(class="close-button" data-close aria-label="Close modal" type="button")
+            span aria-hidden="true" &times

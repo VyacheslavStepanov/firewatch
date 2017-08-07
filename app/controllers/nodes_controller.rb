@@ -1,5 +1,6 @@
 class NodesController < ApplicationController
   before_action :require_authentication!
+  before_action :require_administrator_authority
 
   expose(:node)
   expose(:nodes) { Node.all }
@@ -42,5 +43,9 @@ class NodesController < ApplicationController
 
   def node_params
     params.require(:node).permit(*NODE_PERMITTED_PARAMS)
+  end
+
+  def require_administrator_authority
+    redirect_to root_path unless current_user.admin
   end
 end

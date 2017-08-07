@@ -21,8 +21,8 @@
       = render partial: "reload_history", locals: { statuses: statuses }
     br
 
-
 javascript:
+
   let points_dataset=[];
   function update_chart(){
     points_dataset=[];
@@ -41,11 +41,11 @@ javascript:
       if (i!=0) {
         data.push(
           {
-            x: moment(tds[1].innerHTML).subtract(3,'hours').format(),
-            y:tds[4].innerHTML,
-            location:tds[5].innerHTML,
-            error:tds[6].innerHTML,
-            time:tds[7].innerHTML,
+            x: moment(tds[1].innerHTML).format(),
+            y:tds[6].innerHTML,
+            location:tds[7].innerHTML,
+            error:tds[8].innerHTML,
+            time:tds[9].innerHTML,
             status:tds[3].innerHTML
           });
       }

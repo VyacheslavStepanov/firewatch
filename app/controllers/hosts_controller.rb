@@ -1,5 +1,6 @@
 class HostsController < ApplicationController
   before_action :require_authentication!
+  before_action :require_correct_user, only: %i(show edit update destroy status_history reload_history)
 
   expose_decorated(:host)
   expose_decorated(:hosts) { current_user.hosts.all }
@@ -43,7 +44,7 @@ class HostsController < ApplicationController
   private
 
   def update_params(host)
-    host.name = host.domain
+    host.name = host.domain.strip
     host.last_node = 0
     host.monitor_status = 1
     host.user_id ||= current_user.id
@@ -55,5 +56,9 @@ class HostsController < ApplicationController
 
   def fetch_statuses
     host.statuses.all.order("created_at desc").page(params[:page]).per(100)
+  end
+
+  def require_correct_user
+    redirect_to root_path unless host and host.user_id == current_user.id
   end
 end

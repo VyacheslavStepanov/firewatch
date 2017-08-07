@@ -24,7 +24,7 @@ var config = {
 				display: true,
         time: {
 					displayFormats: {
-            minute: "h:mm"
+            minute: "hh:mm"
           }
 				}
 			}],
